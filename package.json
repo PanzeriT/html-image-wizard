@@ -1,0 +1,72 @@
+{
+    "name": "html-image-wizard",
+    "version": "1.0.0",
+    "description": "Create optimized images for HTML pages at build time.",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "test": "eslint img.js test/**.js && ava",
+        "test-verbose": "DEBUG=ava:watcher npm test -- --watch --verbose",
+        "posttest": "rm -rf test/img/",
+        "build": "tsc",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "lint": "tslint -p tsconfig.json",
+        "prepublishOnly": "npm run lint && npm test",
+        "preversion": "npm run lint",
+        "version": "npm run format && git add -A src",
+        "postversion": "git push && gut push --tags",
+        "sample": "cd sample && node sample.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PanzeriT/html-image-wizard"
+    },
+    "keywords": [
+        "html",
+        "image",
+        "optimize",
+        "static site",
+        "ssg"
+    ],
+    "author": {
+        "name": "Thomas Panzer",
+        "email": "thomas@panzeri.rocks",
+        "url": "https://panzeri.rocks"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/PanzeriT/html-image-wizard/issues"
+    },
+    "homepage": "https://github.com/PanzeriT/html-image-wizard#readme",
+    "dependencies": {
+        "image-size": "^1.0.2",
+        "p-queue": "^7.2.0",
+        "sharp": "^0.30.7"
+    },
+    "devDependencies": {
+        "ava": "^4.3.0",
+        "eslint": "^8.18.0",
+        "prettier": "^2.7.1",
+        "tslint": "^6.1.3",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^4.7.4"
+    },
+    "files": [
+        "lib/**/*"
+    ],
+    "ava": {
+        "failFast": false,
+        "files": [
+            "./test/*.js"
+        ],
+        "ignoredByWatcher": [
+            "./.cache/*",
+            "./img/*",
+            "./test/img/*",
+            "./test/**/generated*"
+        ]
+    }
+}
